@@ -1,0 +1,19 @@
+# Node
+node_modules/
+package-lock.json
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+
+# IDEs e SOs
+.DS_Store
+*.log
+*.env
+.vscode/
+.idea/
+Thumbs.db
+
+# Git
+.git/
+
