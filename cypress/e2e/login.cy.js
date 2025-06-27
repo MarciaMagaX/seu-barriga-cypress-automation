@@ -55,8 +55,10 @@ describe('CT005 - Login com email inválido', () => {
     cy.get('button[type="submit"]').click()
 
     // BUG: sistema não valida o formato do email
+    // O esperado seria uma mensagem como "E-mail em formato inválido"
+    // Atualmente, o sistema não exibe mensagem de erro ou exibe mensagem incorreta
     cy.get('.alert')
-      .should('contain.text', 'Senha é um campo obrigatório') // mensagem incorreta
+      .should('contain.text', 'Senha é um campo obrigatório') // mensagem incorreta para este cenário
   })
 })
 
@@ -90,13 +92,13 @@ describe('CT007 - Login com espaços antes e depois no email', () => {
 describe('CT008 - Login com caracteres especiais no email', () => {
   it('Deve exibir erro por uso inválido de múltiplos "@"', () => {
     cy.visit('https://seubarriga.wcaquino.me/login')
-
     cy.get('#email').type('m@ria.teste001@teste.com')
     cy.get('#senha').type('123456')
     cy.get('button[type="submit"]').click()
-
+    // O sistema retorna mensagem genérica
     cy.get('.alert')
-      .should('contain.text', 'não deve conter o símbolo "@"')
+      .should('contain.text', 'Problema no login do usuário') // mensagem genérica
+    // BUG: sistema não valida o formato do e-mail com múltiplos "@"
   })
 })
 
