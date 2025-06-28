@@ -1,15 +1,18 @@
-describe('CT001 - Login com credenciais válidas', () => {
-  it('Deve realizar login com sucesso', () => {
-    cy.visit('https://seubarriga.wcaquino.me/login')
+describe("Login no site Seu Barriga", () => {
+  beforeEach(() => {
+    cy.visit('/');
+  });
 
-    cy.get('#email').type('maria.teste001@teste.com')
-    cy.get('#senha').type('123456')
-    cy.get('button[type="submit"]').click()
+  describe("CT001 - Login com credenciais válidas", () => {
+    it("Deve realizar login com sucesso", () => {
+      cy.get("#email").type("maria.teste001@teste.com");
+      cy.get("#senha").type("123456");
+      cy.get('button[type="submit"]').click();
 
-    cy.get('.alert').should('contain.text', 'Bem vindo, Maria Teste!')
-  })
-})
-
+      cy.get(".alert").should("contain.text", "Bem vindo, Maria Teste!");
+    });
+  });
+});
 describe('CT002 - Login com email em branco', () => {
   it('Deve exibir mensagem de erro para email em branco', () => {
     cy.visit('https://seubarriga.wcaquino.me/login')
