@@ -1,7 +1,7 @@
 // cypress/support/pageObjects/LoginPage.js
 
 class LoginPage {
-  visit() {
+  accessPageLogin() {
     cy.visit('/login'); // ajuste a rota se necessário
   }
 
