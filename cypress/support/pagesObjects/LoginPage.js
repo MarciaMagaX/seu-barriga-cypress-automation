@@ -6,11 +6,11 @@ class LoginPage {
   }
 
   fillEmail(email) {
-    cy.get('[data-test=email], #email, input[name=email]').clear().type(email);
+    cy.get('#email').clear().type(email);
   }
 
   fillPassword(password) {
-    cy.get('[data-test=senha], #senha, input[name=senha]').clear().type(password);
+    cy.get('#senha').clear().type(password);
   }
 
   submit() {
@@ -18,13 +18,8 @@ class LoginPage {
   }
 
   getEmailError() {
-    // return cy.contains(/email.*obrigatório|email.*inválido|inclua um "@"/i);
-    cy.get("#email").then(($input) => {
-      $input[0].reportValidity(); // força o navegador a exibir a mensagem
-      
-      const message = $input[0].validationMessage;
-      expect(message).to.include('Inclua um "@" no endereço de e-mail');
-    });
+    return cy.contains(/email.*obrigatório|email.*inválido|inclua um "@"/i);
+    
   }
 
   getPasswordError() {
