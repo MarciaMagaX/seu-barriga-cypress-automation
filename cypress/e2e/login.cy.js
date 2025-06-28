@@ -1,3 +1,5 @@
+import LoginPage from "../support/pagesObjects/LoginPage";
+
 describe("Login no site Seu Barriga", () => {
   beforeEach(() => {
     cy.visit('/');
@@ -56,7 +58,7 @@ describe('CT005 - Login com email inválido', () => {
     cy.get('#email').type('usuarioemail.com')
     cy.get('#senha').type('senha123')
     cy.get('button[type="submit"]').click()
-
+LoginPage.getEmailError()
     // BUG: sistema não valida o formato do email
     cy.get('.alert')
       .should('contain.text', 'Senha é um campo obrigatório') // mensagem incorreta
