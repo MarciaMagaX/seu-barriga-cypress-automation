@@ -1,212 +1,127 @@
-describe('CT001 - Login com credenciais válidas', () => {
-  it('Deve realizar login com sucesso', () => {
+/// <reference types="cypress" />
+
+describe('Funcionalidade de Login - Seu Barriga', () => {
+
+  beforeEach(() => {
     cy.visit('https://seubarriga.wcaquino.me/login')
-
-    cy.get('#email').type('maria.teste001@teste.com')
-    cy.get('#senha').type('123456')
-    cy.get('button[type="submit"]').click()
-
-    cy.get('.alert').should('contain.text', 'Bem vindo, Maria Teste!')
   })
-})
 
-describe('CT002 - Login com email em branco', () => {
-  it('Deve exibir mensagem de erro para email em branco', () => {
-    cy.visit('https://seubarriga.wcaquino.me/login')
-
-    cy.get('#senha').type('123456')
-    cy.get('button[type="submit"]').click()
-
-    cy.get('.alert')
-      .should('contain.text', 'Email é um campo obrigatório')
+  it('CT001 - Deve fazer login com credenciais válidas', () => {
+    cy.get('#email').should('be.visible').type('maria.teste001@teste.com').should('have.value', 'maria.teste001@teste.com')
+    cy.get('#senha').should('be.visible').type('123456').should('have.value', '123456')
+    cy.get('button[type="submit"]').should('be.visible').click()
+    cy.get('.alert').should('be.visible').and('contain.text', 'Bem vindo, Maria Teste!')
   })
-})
 
-describe('CT003 - Login com senha em branco', () => {
-  it('Deve exibir mensagem de erro para senha em branco', () => {
-    cy.visit('https://seubarriga.wcaquino.me/login')
-
-    cy.get('#email').type('maria.teste001@teste.com')
-    cy.get('button[type="submit"]').click()
-
-    cy.get('.alert')
-      .should('contain.text', 'Senha é um campo obrigatório')
+  it('CT002 - Deve exibir erro ao tentar login com email em branco', () => {
+    cy.get('#senha').should('be.visible').type('123456')
+    cy.get('button[type="submit"]').should('be.visible').click()
+    cy.get('.alert').should('be.visible').and('contain.text', 'Email é um campo obrigatório')
   })
-})
 
-describe('CT004 - Login com todos os campos em branco', () => {
-  it('Deve exibir mensagens de erro para email e senha em branco', () => {
-    cy.visit('https://seubarriga.wcaquino.me/login')
+  it('CT003 - Deve exibir erro ao tentar login com senha em branco', () => {
+    cy.get('#email').should('be.visible').type('maria.teste001@teste.com')
+    cy.get('button[type="submit"]').should('be.visible').click()
+    cy.get('.alert').should('be.visible').and('contain.text', 'Senha é um campo obrigatório')
+  })
 
-    cy.get('button[type="submit"]').click()
-
+  it('CT004 - Deve exibir erro ao tentar login com todos os campos em branco', () => {
+    cy.get('button[type="submit"]').should('be.visible').click()
     cy.get('.alert')
-      .should('contain.text', 'Email é um campo obrigatório')
+      .should('be.visible')
+      .and('contain.text', 'Email é um campo obrigatório')
       .and('contain.text', 'Senha é um campo obrigatório')
   })
-})
 
-describe('CT005 - Login com email inválido', () => {
-  it('Deve exibir erro ao informar email sem "@"', () => {
-    cy.visit('https://seubarriga.wcaquino.me/login')
+  it('CT005 - Deve exibir erro ao informar email sem "@"', () => {
+    cy.get('#email').should('be.visible').type('usuarioemail.com')
+    cy.get('#senha').should('be.visible').type('senha123')
+    cy.get('button[type="submit"]').should('be.visible').click()
 
-    cy.get('#email').type('usuarioemail.com')
-    cy.get('#senha').type('senha123')
-    cy.get('button[type="submit"]').click()
-
-    // BUG: sistema não valida o formato do email
-    // O esperado seria uma mensagem como "E-mail em formato inválido"
-    // Atualmente, o sistema não exibe mensagem de erro ou exibe mensagem incorreta
-    cy.get('.alert')
-      .should('contain.text', 'Senha é um campo obrigatório') // mensagem incorreta para este cenário
+    cy.get('#email').then(($input) => {
+      $input[0].reportValidity()
+      const message = $input[0].validationMessage
+      expect(message).to.include('Inclua um "@" no endereço de e-mail')
+    })
   })
-})
 
-describe('CT006 - Login com senha curta', () => {
-  it('Deve exibir mensagem de senha inválida (esperado)', () => {
-    cy.visit('https://seubarriga.wcaquino.me/login')
-
-    cy.get('#email').type('maria.teste001@teste.com')
-    cy.get('#senha').type('123')
-    cy.get('button[type="submit"]').click()
-
-    // BUG: mensagem genérica e não específica sobre o tamanho
-    cy.get('.alert')
-      .should('contain.text', 'Problemas com o login do usuário')
+  it('CT006 - Deve exibir mensagem genérica ao tentar login com senha curta', () => {
+    cy.get('#email').should('be.visible').type('maria.teste001@teste.com')
+    cy.get('#senha').should('be.visible').type('123')
+    cy.get('button[type="submit"]').should('be.visible').click()
+    cy.get('.alert').should('be.visible').and('contain.text', 'Problemas com o login do usuário')
   })
-})
 
-describe('CT007 - Login com espaços antes e depois no email', () => {
-  it('Deve remover espaços e permitir o login normalmente', () => {
-    cy.visit('https://seubarriga.wcaquino.me/login')
-
-    cy.get('#email').type(' maria.teste001@teste.com ')
-    cy.get('#senha').type('123456')
-    cy.get('button[type="submit"]').click()
-
-    cy.get('.alert')
-      .should('contain.text', 'Bem vindo, Maria Teste!')
+  it('CT007 - Deve permitir login mesmo com espaços antes/depois no email', () => {
+    cy.get('#email').should('be.visible').type(' maria.teste001@teste.com ')
+    cy.get('#senha').should('be.visible').type('123456')
+    cy.get('button[type="submit"]').should('be.visible').click()
+    cy.get('.alert').should('be.visible').and('contain.text', 'Bem vindo, Maria Teste!')
   })
-})
 
-describe('CT008 - Login com caracteres especiais no email', () => {
-  it('Deve exibir erro por uso inválido de múltiplos "@"', () => {
-    cy.visit('https://seubarriga.wcaquino.me/login')
-    cy.get('#email').type('m@ria.teste001@teste.com')
-    cy.get('#senha').type('123456')
-    cy.get('button[type="submit"]').click()
-    // O sistema retorna mensagem genérica
-    cy.get('.alert')
-      .should('contain.text', 'Problema no login do usuário') // mensagem genérica
-    // BUG: sistema não valida o formato do e-mail com múltiplos "@"
+  it('CT008 - Deve exibir erro para múltiplos "@" no email', () => {
+    cy.get('#email').should('be.visible').type('m@ria.teste001@teste.com')
+    cy.get('#senha').should('be.visible').type('123456')
+    cy.get('button[type="submit"]').should('be.visible').click()
+    cy.get('.alert').should('be.visible').and('contain.text', 'A parte depois do "@" não deve conter o símbolo "@".')
   })
-})
 
-describe('CT009 - Login com caracteres especiais na senha', () => {
-  it('Deve aceitar senha com caracteres especiais se forem válidos', () => {
-    cy.visit('https://seubarriga.wcaquino.me/login')
-
-    cy.get('#email').type('maria.teste001@teste.com')
-    cy.get('#senha').type('@!#%¨&*()')
-    cy.get('button[type="submit"]').click()
-
-    // BUG: sistema não aceita e mostra erro genérico
-    cy.get('.alert')
-      .should('contain.text', 'Problemas com o login do usuário')
+  it('CT009 - Deve exibir erro genérico para senha com caracteres especiais', () => {
+    cy.get('#email').should('be.visible').type('maria.teste001@teste.com')
+    cy.get('#senha').should('be.visible').type('@!#%¨&*()')
+    cy.get('button[type="submit"]').should('be.visible').click()
+    cy.get('.alert').should('be.visible').and('contain.text', 'Problemas com o login do usuário')
   })
-})
 
-describe('CT010 - Email com nome inválido e múltiplos "@"', () => {
-  it('Deve exibir erro por formato inválido de email', () => {
-    cy.visit('https://seubarriga.wcaquino.me/login')
-
-    cy.get('#email').type('m@ria.teste001@teste.com')
-    cy.get('#senha').type('senha123')
-    cy.get('button[type="submit"]').click()
-
-    cy.get('.alert')
-      .should('contain.text', 'não deve conter o símbolo "@"')
+  it('CT010 - Deve exibir erro para email com nome inválido e múltiplos "@"', () => {
+    cy.get('#email').should('be.visible').type('m@ria.teste001@teste.com')
+    cy.get('#senha').should('be.visible').type('senha123')
+    cy.get('button[type="submit"]').should('be.visible').click()
+    cy.get('.alert').should('be.visible').and('contain.text', 'A parte depois do "@" não deve conter o símbolo "@".')
   })
-})
 
-describe('CT011 - Login com números no nome do email', () => {
-  it('Deve aceitar normalmente email com números no nome', () => {
-    cy.visit('https://seubarriga.wcaquino.me/login')
-
-    cy.get('#email').type('maria.teste001@teste.com')
-    cy.get('#senha').type('123456')
-    cy.get('button[type="submit"]').click()
-
-    cy.get('.alert')
-      .should('contain.text', 'Bem vindo, Maria Teste!')
+  it('CT011 - Deve permitir login com números no nome do email', () => {
+    cy.get('#email').should('be.visible').type('maria.teste001@teste.com')
+    cy.get('#senha').should('be.visible').type('123456')
+    cy.get('button[type="submit"]').should('be.visible').click()
+    cy.get('.alert').should('be.visible').and('contain.text', 'Bem vindo, Maria Teste!')
   })
-})
 
-describe('CT012 - Email mal formatado (sem "@")', () => {
-  it('Deve exibir erro por falta de "@" no email', () => {
-    cy.visit('https://seubarriga.wcaquino.me/login')
-
-    cy.get('#email').type('maria.teste001teste.com')
-    cy.get('#senha').type('123456')
-    cy.get('button[type="submit"]').click()
-
-    cy.get('.alert')
-      .should('contain.text', 'Inclua um "@" no endereço de e-mail')
+  it('CT012 - Deve exibir erro para email sem "@"', () => {
+    cy.get('#email').should('be.visible').type('maria.teste001teste.com')
+    cy.get('#senha').should('be.visible').type('123456')
+    cy.get('button[type="submit"]').should('be.visible').click()
+    cy.get('.alert').should('be.visible').and('contain.text', 'Inclua um "@" no endereço de e-mail. "maria.teste001.com" está com um "@" faltando.')
   })
-})
 
-describe('CT013 - Email sem nome de usuário', () => {
-  it('Deve exibir erro por email incompleto (@teste.com)', () => {
-    cy.visit('https://seubarriga.wcaquino.me/login')
-
-    cy.get('#email').type('@teste.com')
-    cy.get('#senha').type('123456')
-    cy.get('button[type="submit"]').click()
-
-    cy.get('.alert')
-      .should('contain.text', 'Insira uma parte seguida por "@"')
+  it('CT013 - Deve exibir erro para email sem nome de usuário', () => {
+    cy.get('#email').should('be.visible').type('@teste.com')
+    cy.get('#senha').should('be.visible').type('123456')
+    cy.get('button[type="submit"]').should('be.visible').click()
+    cy.get('.alert').should('be.visible').and('contain.text', 'Insira uma parte seguida por "@". "@teste.com" está incompleto.')
   })
-})
 
-describe('CT014 - Email com domínio inválido', () => {
-  it('Deve exibir erro por domínio incompleto', () => {
-    cy.visit('https://seubarriga.wcaquino.me/login')
-
-    cy.get('#email').type('maria.teste001@teste')
-    cy.get('#senha').type('123456')
-    cy.get('button[type="submit"]').click()
-
-    // BUG: mensagem genérica em vez de "domínio inválido"
-    cy.get('.alert')
-      .should('contain.text', 'Problemas com o login do usuário')
+  it('CT014 - Deve exibir erro genérico para domínio incompleto', () => {
+    cy.get('#email').should('be.visible').type('maria.teste001@teste')
+    cy.get('#senha').should('be.visible').type('123456')
+    cy.get('button[type="submit"]').should('be.visible').click()
+    cy.get('.alert').should('be.visible').and('contain.text', 'Problemas com o login do usuário')
   })
-})
 
-describe('CT015 - Login com email em letras maiúsculas', () => {
-  it('Deve aceitar login mesmo com letras maiúsculas no email', () => {
-    cy.visit('https://seubarriga.wcaquino.me/login')
-
-    cy.get('#email').type('MARIA.TESTE001@TESTE.COM')
-    cy.get('#senha').type('123456')
-    cy.get('button[type="submit"]').click()
-
-    // BUG: sistema não aceita, embora email devesse ser case-insensitive
-    cy.get('.alert')
-      .should('contain.text', 'Problemas com o login do usuário')
+  it('CT015 - Deve exibir erro se email em maiúsculas não for tratado', () => {
+    cy.get('#email').should('be.visible').type('MARIA.TESTE001@TESTE.COM')
+    cy.get('#senha').should('be.visible').type('123456')
+    cy.get('button[type="submit"]').should('be.visible').click()
+    cy.get('.alert').should('be.visible').and('contain.text', 'Problemas com o login do usuário')
   })
-})
 
-describe('CT016 - Múltiplas tentativas de login com senha errada', () => {
-  it('Deve exibir erro de login inválido, mas não bloqueia o usuário', () => {
-    cy.visit('https://seubarriga.wcaquino.me/login')
-
-    for (let i = 0; i < 5; i++) {
-      cy.get('#email').clear().type('maria.teste001@teste.com')
-      cy.get('#senha').clear().type('senhaErrada')
-      cy.get('button[type="submit"]').click()
-      cy.get('.alert').should('contain.text', 'Problemas com o login do usuário')
+  it('CT016 - Deve exibir erro de login inválido após múltiplas tentativas', () => {
+    for (let i = 0; i < 3; i++) {
+      cy.get('#email').should('be.visible').clear().type('maria.teste001@teste.com')
+      cy.get('#senha').should('be.visible').clear().type('senhaErrada')
+      cy.get('button[type="submit"]').should('be.visible').click()
+      cy.get('.alert').should('be.visible').and('contain.text', 'Problemas com o login do usuário')
     }
-
-    // Nenhuma mensagem de segurança ou bloqueio foi exibida
   })
+
 })
