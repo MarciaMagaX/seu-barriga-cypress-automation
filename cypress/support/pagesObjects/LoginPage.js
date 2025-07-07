@@ -1,16 +1,16 @@
 // cypress/support/pageObjects/LoginPage.js
 
 class LoginPage {
-  visit() {
+  accessPageLogin() {
     cy.visit('/login'); // ajuste a rota se necessário
   }
 
   fillEmail(email) {
-    cy.get('[data-test=email], #email, input[name=email]').clear().type(email);
+    cy.get('#email').clear().type(email);
   }
 
   fillPassword(password) {
-    cy.get('[data-test=senha], #senha, input[name=senha]').clear().type(password);
+    cy.get('#senha').clear().type(password);
   }
 
   submit() {
@@ -19,6 +19,7 @@ class LoginPage {
 
   getEmailError() {
     return cy.contains(/email.*obrigatório|email.*inválido|inclua um "@"/i);
+    
   }
 
   getPasswordError() {
