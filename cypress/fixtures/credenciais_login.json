@@ -1,0 +1,77 @@
+{
+  "usuarios_validos": [
+    {
+      "email": "joao.silva@teste.com",
+      "senha": "123456",
+      "nome": "João Silva",
+      "descricao": "Usuário válido básico"
+    },
+    {
+      "email": "maria.santos@teste.com",
+      "senha": "senha123",
+      "nome": "Maria Santos",
+      "descricao": "Usuário válido com senha diferente"
+    },
+    {
+      "email": "admin@teste.com",
+      "senha": "admin123",
+      "nome": "Administrador",
+      "descricao": "Usuário administrador"
+    }
+  ],
+  "usuarios_invalidos": [
+    {
+      "email": "inexistente@teste.com",
+      "senha": "123456",
+      "descricao": "Email inexistente",
+      "erro_esperado": "Usuário não encontrado"
+    },
+    {
+      "email": "joao.silva@teste.com",
+      "senha": "senha_errada",
+      "descricao": "Senha incorreta",
+      "erro_esperado": "Senha incorreta"
+    },
+    {
+      "email": "email_invalido",
+      "senha": "123456",
+      "descricao": "Email inválido",
+      "erro_esperado": "Email inválido"
+    },
+    {
+      "email": "",
+      "senha": "123456",
+      "descricao": "Email em branco",
+      "erro_esperado": "Email é um campo obrigatório"
+    },
+    {
+      "email": "joao.silva@teste.com",
+      "senha": "",
+      "descricao": "Senha em branco",
+      "erro_esperado": "Senha é um campo obrigatório"
+    },
+    {
+      "email": "",
+      "senha": "",
+      "descricao": "Ambos os campos em branco",
+      "erro_esperado": "Campos obrigatórios"
+    }
+  ],
+  "campos_obrigatorios": {
+    "email_vazio": {
+      "email": "",
+      "senha": "123456",
+      "erro_esperado": "Email é um campo obrigatório"
+    },
+    "senha_vazia": {
+      "email": "teste@email.com",
+      "senha": "",
+      "erro_esperado": "Senha é um campo obrigatório"
+    },
+    "ambos_vazios": {
+      "email": "",
+      "senha": "",
+      "erro_esperado": "Ambos os campos são obrigatórios"
+    }
+  }
+}

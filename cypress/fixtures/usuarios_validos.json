@@ -1,0 +1,50 @@
+[
+  {
+    "nome": "João Silva",
+    "email": "joao.silva@teste.com",
+    "senha": "123456",
+    "descricao": "Usuário com dados básicos válidos"
+  },
+  {
+    "nome": "Maria Santos Oliveira",
+    "email": "maria.santos@teste.com",
+    "senha": "senha123",
+    "descricao": "Usuário com nome completo"
+  },
+  {
+    "nome": "Carlos123",
+    "email": "carlos123@teste.com",
+    "senha": "Teste456",
+    "descricao": "Usuário com números no nome"
+  },
+  {
+    "nome": "Ana Costa",
+    "email": "ana.costa@teste.com",
+    "senha": "abc123",
+    "descricao": "Usuário com senha simples"
+  },
+  {
+    "nome": "Pedro Almeida",
+    "email": "pedro.almeida@teste.com",
+    "senha": "Pedro@2024",
+    "descricao": "Usuário com senha complexa"
+  },
+  {
+    "nome": "Lucia Ferreira",
+    "email": "lucia.ferreira@teste.com",
+    "senha": "123",
+    "descricao": "Usuário com senha curta"
+  },
+  {
+    "nome": "Roberto Lima",
+    "email": "roberto.lima@teste.com",
+    "senha": "RobertoLima2024!",
+    "descricao": "Usuário com senha muito complexa"
+  },
+  {
+    "nome": "Fernanda Costa Silva",
+    "email": "fernanda.costa@teste.com",
+    "senha": "fernanda123",
+    "descricao": "Usuário com nome composto"
+  }
+]

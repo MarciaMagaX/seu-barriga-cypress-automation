@@ -1,0 +1,46 @@
+{
+  "urls": {
+    "base": "https://seubarriga.wcaquino.me",
+    "cadastro": "https://seubarriga.wcaquino.me/cadastro",
+    "login": "https://seubarriga.wcaquino.me/login",
+    "home": "https://seubarriga.wcaquino.me/home"
+  },
+  "timeouts": {
+    "padrao": 10000,
+    "curto": 3000,
+    "longo": 30000
+  },
+  "mensagens": {
+    "sucesso": {
+      "cadastro": "Usuário inserido com sucesso",
+      "login": "Bem vindo"
+    },
+    "erro": {
+      "nome_obrigatorio": "Nome é um campo obrigatório",
+      "email_obrigatorio": "Email é um campo obrigatório",
+      "senha_obrigatorio": "Senha é um campo obrigatório",
+      "email_duplicado": "Endereço de email já utilizado",
+      "email_invalido": "Inclua um \"@\" no endereço de e-mail",
+      "email_caracteres_especiais": "A parte depois de \"@\" não deve conter o símbolo \"@\""
+    }
+  },
+  "seletores": {
+    "cadastro": {
+      "nome": "#nome",
+      "email": "#email",
+      "senha": "input[type=\"password\"]",
+      "botao_cadastrar": "Cadastrar"
+    },
+    "login": {
+      "email": "#email",
+      "senha": "#senha",
+      "botao_entrar": "Entrar",
+      "botao_sair": "Sair"
+    }
+  },
+  "dados_padrao": {
+    "senha_padrao": "123456",
+    "dominio_email": "@teste.com",
+    "prefixo_email_padrao": "usuario"
+  }
+}

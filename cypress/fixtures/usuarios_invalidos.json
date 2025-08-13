@@ -1,0 +1,72 @@
+[
+  {
+    "nome": "",
+    "email": "teste@email.com",
+    "senha": "123456",
+    "descricao": "Nome em branco",
+    "erro_esperado": "Nome é um campo obrigatório"
+  },
+  {
+    "nome": "João",
+    "email": "",
+    "senha": "123456",
+    "descricao": "Email em branco",
+    "erro_esperado": "Email é um campo obrigatório"
+  },
+  {
+    "nome": "João",
+    "email": "joao@teste.com",
+    "senha": "",
+    "descricao": "Senha em branco",
+    "erro_esperado": "Senha é um campo obrigatório"
+  },
+  {
+    "nome": "     ",
+    "email": "     ",
+    "senha": "     ",
+    "descricao": "Todos os campos com espaços em branco",
+    "erro_esperado": "Campos obrigatórios"
+  },
+  {
+    "nome": "João",
+    "email": "joao.com",
+    "senha": "123456",
+    "descricao": "Email sem @",
+    "erro_esperado": "Email inválido"
+  },
+  {
+    "nome": "Teste",
+    "email": "teste@@teste.com",
+    "senha": "123456",
+    "descricao": "Email com @@",
+    "erro_esperado": "Email com caracteres especiais"
+  },
+  {
+    "nome": "&@*!@",
+    "email": "mariaemail.com",
+    "senha": "Teste123",
+    "descricao": "Nome com caracteres especiais e email inválido",
+    "erro_esperado": "Dados inválidos"
+  },
+  {
+    "nome": "João",
+    "email": "joao@",
+    "senha": "123456",
+    "descricao": "Email sem domínio",
+    "erro_esperado": "Email incompleto"
+  },
+  {
+    "nome": "João",
+    "email": "@teste.com",
+    "senha": "123456",
+    "descricao": "Email sem parte local",
+    "erro_esperado": "Email sem usuário"
+  },
+  {
+    "nome": "João",
+    "email": "joao@teste",
+    "senha": "123456",
+    "descricao": "Email sem extensão",
+    "erro_esperado": "Email sem extensão"
+  }
+]
