@@ -1,16 +1,35 @@
 {
   "name": "seu-barriga-cypress-automation",
   "version": "1.0.0",
-  "description": "",
+  "description": "Automação de testes E2E para o sistema Seu Barriga usando Cypress com Page Object Model",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "test:cadastro": "cypress run --spec 'cypress/e2e/cadastro_usua.cy.js'",
+    "test:login": "cypress run --spec 'cypress/e2e/login.cy.js'",
+    "test:fluxo": "cypress run --spec 'cypress/e2e/fluxo_completo.cy.js'",
+    "test:all": "cypress run --spec 'cypress/e2e/**/*.cy.js'",
+    "test:headed": "cypress run --headed",
+    "test:chrome": "cypress run --browser chrome",
+    "test:firefox": "cypress run --browser firefox",
+    "test:edge": "cypress run --browser edge"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "cypress",
+    "automation",
+    "testing",
+    "e2e",
+    "page-object-model"
+  ],
+  "author": "QA Automation Team",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
     "cypress": "^14.4.1"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
   }
 }
